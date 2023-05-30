@@ -5,14 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&amp;display=swap" rel="stylesheet">
 
-    <link href="styles.css" rel="stylesheet" />
+    <!-- kaboom.js -->
+    <script src="https://unpkg.com/kaboom@3000.0.1/dist/kaboom.js"></script>
+
+    <!-- my files -->
+    <link href="styles.css" rel="stylesheet">
     <script src="script.js" defer></script>
 
-    <title>capstone project version 1</title>
+    <title>capstone project version 2</title>
 </head>
 <body>
     <header>
@@ -21,47 +26,37 @@
 
     <main>
         <div id="buttons">
-            <div id="buttonGallery" class="button">gallery</div>
-            <div id="buttonInstructions" class="button">how to play</div>
+            <div id="galleryBtn" class="button">gallery</div>
+            <div id="instructionBtn" class="button">how to play</div>
         </div>
 
         <div id="game">
+            <canvas id="gameArea"></canvas>
             <section id="gallery" class="hidden">
                 <div class="category">
                     <h2>arboretum</h2>
                     <div class="container">
-                        <div class="item">
-                            <img src="images/duck.png" alt="duck" width="160px">
-                            <h3>duck</h3>
-                        </div>
-                        <div class="item">
-                            <img src="images/duck.png" alt="duck" width="160px">
-                            <h3>duck</h3>
-                        </div>
-                        <div class="item">
-                            <img src="images/squirrellocked.png" alt="locked" width="160px">
-                            <h3>???</h3>
-                        </div>
-                        <div class="item">
-                            <img src="images/squirrellocked.png" alt="locked" width="160px">
-                            <h3>???</h3>
-                        </div>
-                        <div class="item">
-                            <img src="images/squirrellocked.png" alt="locked" width="160px">
-                            <h3>???</h3>
-                        </div>
+                        <section id="description" class="hidden">
+                            <img src="images/cormorant1.png" alt="double crested cormorant" width="120">
+                            <h3></h3>
+                            <p></p>
+                            <div class="close button">close</div>
+                        </section>
                     </div>
                 </div>
-                <div class="category">
+                <!-- <div class="category">
                     <h2>uc davis</h2>
-                    <div class="item">
-                        <img src="images/squirrellocked.png" alt="locked" width="160px">
-                        <h3>???</h3>
-                    </div>
-                </div>
-                <div id="buttonClose" class="button">close</div>
+                </div> -->
+                <div class="close button">close</div>
             </section>
-            <section id="instructions" class="hidden"></section>
+            <section id="instructions" class="hidden">
+                <h3>Navigate to a part of the seal using the arrow keys and click “start” to play.</h3>
+                <div class="close button">close</div>
+            </section>
+            <div id="popup" class="hidden">
+                <h3>level description here</h3>
+                <div class="button" id="arboretum">start</div>
+            </div>
         </div>
     </main>
     
