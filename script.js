@@ -170,6 +170,7 @@
     map.loadSprite("boyLeft", "images/boyLeft.png")    
     map.loadSprite("tempbg", "images/background.png")
     map.loadSprite("temparea", "images/boyDown.png")
+    map.loadSprite("tree", "images/mexicanT.png")
     
     // for me: create a new one for front, side etc. -> player = boyfront onKeyDown
     map.add([
