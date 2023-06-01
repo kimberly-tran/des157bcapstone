@@ -108,14 +108,17 @@
 
         for (const item of items) {
             item.addEventListener('click', function(event) {
-                const itemID = event.target.id;
-                console.log(itemID)
-                console.log(data[itemID])
-                if (data.itemID.hasOwnProperty('description')) {
-                    console.log(data[itemID].description);
-                  } else {
-                    console.log('Description property is missing for itemID:', itemID);
-                  }
+
+                alert("Sorry, still under construction!");
+
+                // const itemID = event.target.id;
+                // console.log(itemID)
+                // console.log(data[itemID])
+                // if (data.itemID.hasOwnProperty('description')) {
+                //     console.log(data[itemID].description);
+                //   } else {
+                //     console.log('Description property is missing for itemID:', itemID);
+                //   }
                 // console.log(data[itemID].name)
 
                 
@@ -140,8 +143,8 @@
 
                
 
-                console.log(description)
-                description.className = "showing"
+                // console.log(description)
+                // description.className = "showing"
 
             });
         }
@@ -243,10 +246,42 @@
 arb.setBackground(141, 183, 255)
 
 // load assets
-arb.loadSprite("bean", "images/boyRight.png")
+arb.loadSprite("bean", "/images/boy.png", {
+	sliceX: 6,
+	anims: {
+		"run": {
+			from: 1,
+			to: 4,
+			speed: 10,
+			loop: true,
+		},
+
+		"jump1": 5,
+	}
+})
 arb.loadSprite("tree", "images/mexicanT.png")
-arb.loadSprite("bird", "images/cormorant1.png")
-arb.loadSprite("butterfly", "images/monarch1.png")
+arb.loadSprite("bird", "images/cormorant1.png",{
+    sliceX: 2,
+    anims: {
+        "fly": {
+            from: 0,
+            to: 1,
+            speed: 3,
+            loop: true,
+        }
+    }
+})
+arb.loadSprite("butterfly", "images/monarch1.png",{
+    sliceX: 2,
+    anims: {
+        "fly": {
+            from: 0,
+            to: 1,
+            speed: 8,
+            loop: true,
+        }
+    }
+})
 arb.scene("game", () => {
 
 	// define gravity
@@ -257,9 +292,21 @@ arb.scene("game", () => {
 		// list of components
 		arb.sprite("bean"),
 		arb.pos(80, 40),
+        arb.anchor("center"),
 		arb.area(),
 		arb.body(),
 	])
+
+    player.play("run")
+    // player.onAnimEnd((anim) =>{
+    //     if(anim === "run"){
+
+    //     }
+    // })
+
+    player.onGround(() => {
+        player.play("run")
+    })
 
 	// floor
 	arb.add([
@@ -275,6 +322,7 @@ arb.scene("game", () => {
 	function jump() {
 		if (player.isGrounded()) {
 			player.jump(JUMP_FORCE)
+            player.play("jump1")
 		}
 	}
 
@@ -287,7 +335,7 @@ arb.scene("game", () => {
 		// add tree obj
 		arb.add([
             arb.sprite("tree"),
-            arb.area({ scale: 0.6 }),
+            arb.area({ scale: 0.3 }),
             arb.scale(2),
 			// rect(48, rand(32, 96)),
 			// area(),
@@ -301,7 +349,7 @@ arb.scene("game", () => {
 		])
 
 		// wait a random amount of time to spawn next tree
-		arb.wait(arb.rand(0.9, 1.9), spawnTree)
+		arb.wait(arb.rand(3.9, 5.9), spawnTree)
 
 	}
 
@@ -314,75 +362,112 @@ arb.scene("game", () => {
 	// start spawning trees
 	spawnTree()
 
-
+    setTimeout(() => {
 	function spawnButterfly() {
 
 		// add insect obj
-		arb.add([
+		// arb.add([
+        //     arb.sprite("butterfly"),
+        //     arb.area({ scale: 0.1 }),
+        //     arb.scale(1),
+		// 	// rect(48, rand(32, 96)),
+		// 	// area(),
+		// 	arb.outline(4),
+		// 	arb.pos(arb.width(), arb.height() - FLOOR_HEIGHT),
+		// 	arb.anchor("botleft"),
+		// 	arb.color(238, 143, 203),
+		// 	arb.move(arb.vec2(-1, 0), SPEED2),
+		// 	arb.offscreen({ destroy: true }),
+		// 	"butterfly",
+		// ])
+
+        const butterfly = arb.add([
             arb.sprite("butterfly"),
-            arb.area({ scale: 0.1 }),
-            arb.scale(1),
-			// rect(48, rand(32, 96)),
-			// area(),
+            arb.area({scale: 0.6}),
 			arb.outline(4),
-			arb.pos(arb.width(), arb.height() - FLOOR_HEIGHT),
-			arb.anchor("botleft"),
-			arb.color(238, 143, 203),
+			arb.pos(arb.width(), arb.rand(250, 280) - FLOOR_HEIGHT),
+            arb.anchor("botleft"),
+            arb.color(238, 143, 203),
 			arb.move(arb.vec2(-1, 0), SPEED2),
 			arb.offscreen({ destroy: true }),
-			"butterfly",
-		])
+            "butterfly",
+        ]);
+
+        butterfly.play("fly"),
+        	// lose if player collides with any game obj with tag "tree"
+		player.onCollide("butterfly",() => {
+			// go to "lose" scene and pass the score
+			arb.go("lose2", score)
+			arb.addKaboom(player.pos)
+		})
 
 		// wait a random amount of time to spawn next tree
 		arb.wait((2.8), spawnButterfly)
 
 	}
 
-		// lose if player collides with any game obj with tag "tree"
-		player.onCollide("butterfly",() => {
-			// go to "lose" scene and pass the score
-			arb.go("lose2", score)
-			arb.addKaboom(player.pos)
-		})
 	// start spawning trees
 	spawnButterfly()
+
+    }, 4000);
 
 
 	
 
 
-
+setTimeout(() => {
+    console.log("delayed")
     function spawnBird() {
+        console.log("bird spawned")
 
 		// add bird obj
-		arb.add([
+		// arb.add([
+        //     arb.sprite("bird"),
+        //     arb.scale(1),
+		// 	// rect(48, rand(32, 96)),
+		// 	arb.area(),
+		// 	arb.outline(4),
+		// 	arb.pos(arb.width(), 300 - FLOOR_HEIGHT),
+        //     // pos(width(), height(10)),
+		// 	arb.anchor("botleft"),
+		// 	arb.color(238, 143, 203),
+		// 	arb.move(arb.vec2(-1, 0), SPEED2),
+		// 	arb.offscreen({ destroy: true }),
+		// 	"bird",
+		// ])
+
+        const bird = arb.add([
             arb.sprite("bird"),
-            arb.scale(1),
-			// rect(48, rand(32, 96)),
-			arb.area(),
+            arb.area({scale: 0.8}),
 			arb.outline(4),
-			arb.pos(arb.width(), 300 - FLOOR_HEIGHT),
-            // pos(width(), height(10)),
-			arb.anchor("botleft"),
-			arb.color(238, 143, 203),
+			arb.pos(arb.width(), arb.rand(200, 280) - FLOOR_HEIGHT),
+            arb.anchor("botleft"),
+            arb.color(238, 143, 203),
 			arb.move(arb.vec2(-1, 0), SPEED2),
 			arb.offscreen({ destroy: true }),
-			"bird",
-		])
+            "bird",
+        ]);
+
+        bird.play("fly"),
 
 		// wait a random amount of time to spawn next bird
 		arb.wait((4.0), spawnBird)
 
+        // lose if player collides with any game obj with tag "bird"
+        player.onCollide("bird", () => {
+            // go to "lose2" scene and pass the score
+            arb.go("lose3", score)
+            arb.addKaboom(player.pos)
+        })
+        // start spawning birds
 	}
 
-	// lose if player collides with any game obj with tag "bird"
-	player.onCollide("bird", () => {
-		// go to "lose2" scene and pass the score
-		arb.go("lose3", score)
-		arb.addKaboom(player.pos)
-	})
-	// start spawning birds
-	spawnBird()
+    spawnBird()
+
+}, 2000);
+
+
+
 
 
 
@@ -438,7 +523,9 @@ arb.scene("lose2", (score) => {
 		arb.pos(arb.width() / 2, arb.height() / 2 - 64),
 		arb.scale(4),
 		arb.anchor("center"),
+        arb.scale(0),
 	])
+
 
 	// display score
 	arb.add([
@@ -463,6 +550,13 @@ arb.scene("lose3", (score) => {
 		arb.anchor("center"),
 	])
 
+    function clearTimeout() {
+        clearTimeout(spawnBird);
+      }
+    function clearTimeout() {
+        clearTimeout(spawnButterfly);
+      }
+
 	// display score
 	arb.add([
 		arb.text(score),
@@ -470,6 +564,8 @@ arb.scene("lose3", (score) => {
 		arb.scale(2),
 		arb.anchor("center"),
 	])
+
+
 
 	// go back to game with space is pressed
 	arb.onKeyPress("space", () => arb.go("game"))

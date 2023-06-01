@@ -156,7 +156,7 @@ scene("game", () => {
 			color(238, 143, 203),
 			move(LEFT, 600),
 			offscreen({ destroy: true }),
-			"bird".play("fly"),
+			"bird",
 		])
 
 		// wait a random amount of time to spawn next bird
