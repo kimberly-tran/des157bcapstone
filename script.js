@@ -21,7 +21,6 @@
 
     instructionBtn.addEventListener('click', function() {
         instructions.className = 'showing';
-        console.log(description);
         gallery.className = 'hidden';
         gameArea.className = 'hidden';
         popup.className = 'hidden';
@@ -44,7 +43,9 @@
         const data = await arboretum.json();
         console.log(data);
         document.querySelector('.container').innerHTML = outputGallery(data);
-        // document.querySelector('#description').innerHTML = createDescriptions(data);
+        document.querySelector('#description').innerHTML = createDescriptions(data);
+        // document.querySelector('#description p').innerHTML = createDescriptionHeader(data);
+        // createDescriptions();
     }
 
     let galleryContainer = document.querySelector('.container');
@@ -52,13 +53,13 @@
     function outputGallery(data) {
         const dataPoints = Object.keys(data);
         // console.log(dataPoints);
-        // let galleryContainer = "";
-        let galleryContainer = `<div id="description" class="hidden">
-                                    <img src="images/cormorant1.png" alt="double crested cormorant" width="120">
-                                    <h3></h3>
-                                    <p></p>
-                                    <div class="close button">close</div>
-                                </div>`;
+        let galleryContainer = "";
+        // let galleryContainer = `<div id="description" class="hidden">
+        //                             <img src="images/cormorant1.png" alt="double crested cormorant" width="120">
+        //                             <h3></h3>
+        //                             <p></p>
+        //                             <div class="close button">close</div>
+        //                         </div>`;
 
         for (let i = 0; i < dataPoints.length; i++) {
             let newItem = document.createElement("div");
@@ -101,6 +102,51 @@
     //     }
     // }
 
+    function createDescriptions(data) {
+        const items = document.querySelectorAll('.item');
+        console.log(items)
+
+        for (const item of items) {
+            item.addEventListener('click', function(event) {
+                const itemID = event.target.id;
+                console.log(itemID)
+                console.log(data[itemID])
+                if (data.itemID.hasOwnProperty('description')) {
+                    console.log(data[itemID].description);
+                  } else {
+                    console.log('Description property is missing for itemID:', itemID);
+                  }
+                // console.log(data[itemID].name)
+
+                
+    //             description.innerHTML = 
+    //                 `<img src="images/${data[itemID].image}" alt="double crested cormorant" width="120">
+    //                 <h3>${data[itemID].name}</h3>
+    //                 <p>${data[itemID].description}</p>
+    //                 <div class="close button">close</div>`
+    //   ;
+
+                // let image = `data.${itemID}.image`
+                // let html = `<section id="description" class="hidden">`;
+                // html += `<img src="images/${image}" alt="double crested cormorant" width="120">
+                // <h3></h3>
+                // <p></p>
+                // <div class="close button">close</div>`
+                // html += "</section>"
+                // description = html
+                // console.log(data.arboretum1.name)
+                // document.querySelector('#description p').innerHTML = data[itemID].name;
+                // document.querySelector('#description h3').innerHTML =
+
+               
+
+                console.log(description)
+                description.className = "showing"
+
+            });
+        }
+    }
+
     //kaboom seal map
     const map = kaboom({
         global: false,
@@ -111,7 +157,7 @@
     map.loadSprite("boyUp", "images/boyUp.png")
     map.loadSprite("boyRight", "images/boyRight.png")    
     map.loadSprite("boyLeft", "images/boyLeft.png")    
-    map.loadSprite("tempbg", "images/tempbg.png")
+    map.loadSprite("tempbg", "images/background.png")
     map.loadSprite("temparea", "images/boyDown.png")
     
     // for me: create a new one for front, side etc. -> player = boyfront onKeyDown
@@ -128,8 +174,8 @@
     ])
 
     let boy = map.add([
-        map.sprite("boyRight"),
-        map.pos(500, 300),
+        map.sprite("boyDown"),
+        map.pos(470, 250),
         map.area(),
     ])
 
@@ -179,12 +225,267 @@
    function arboretumLevel() {
         popup.className = 'hidden';
 
-        const arboretum = kaboom({
+        const arb = kaboom({
             global: false,
             canvas: document.querySelector('#gameArea'),
+            scale: 2,
     })
+    
 
-    }
+
+
+    ////
+
+    const FLOOR_HEIGHT = 48
+    const JUMP_FORCE = 800
+    const SPEED2 = 300
+
+arb.setBackground(141, 183, 255)
+
+// load assets
+arb.loadSprite("bean", "../images/boyRight.png")
+arb.loadSprite("tree", "../images/mexicanT.png")
+arb.loadSprite("bird", "../images/cormorant1.png")
+arb.loadSprite("butterfly", "../images/monarch1.png")
+arb.scene("game", () => {
+
+	// define gravity
+	arb.setGravity(2600)
+
+	// add a game object to screen
+	const player = arb.add([
+		// list of components
+		arb.sprite("bean"),
+		arb.pos(80, 40),
+		arb.area(),
+		arb.body(),
+	])
+
+	// floor
+	arb.add([
+		arb.rect(arb.width(), FLOOR_HEIGHT),
+		arb.outline(4),
+		arb.pos(0, arb.height()),
+		arb.anchor("botleft"),
+		arb.area(),
+		arb.body({ isStatic: true }),
+		arb.color(50, 156, 50),
+	])
+
+	function jump() {
+		if (player.isGrounded()) {
+			player.jump(JUMP_FORCE)
+		}
+	}
+
+	// jump when user press space
+	arb.onKeyPress("space", jump)
+	arb.onClick(jump)
+
+	function spawnTree() {
+
+		// add tree obj
+		arb.add([
+            arb.sprite("tree"),
+            arb.area({ scale: 0.6 }),
+            arb.scale(2),
+			// rect(48, rand(32, 96)),
+			// area(),
+			arb.outline(4),
+			arb.pos(arb.width(), arb.height() - FLOOR_HEIGHT),
+			arb.anchor("botleft"),
+			arb.color(238, 143, 203),
+			arb.move(arb.vec2(-1, 0), SPEED2),
+			arb.offscreen({ destroy: true }),
+			"tree",
+		])
+
+		// wait a random amount of time to spawn next tree
+		arb.wait(arb.rand(0.9, 1.9), spawnTree)
+
+	}
+
+		// lose if player collides with any game obj with tag "tree"
+		player.onCollide("tree",() => {
+			// go to "lose" scene and pass the score
+			arb.go("lose", score)
+			arb.addKaboom(player.pos)
+		})
+	// start spawning trees
+	spawnTree()
+
+
+	function spawnButterfly() {
+
+		// add insect obj
+		arb.add([
+            arb.sprite("butterfly"),
+            arb.area({ scale: 0.1 }),
+            arb.scale(1),
+			// rect(48, rand(32, 96)),
+			// area(),
+			arb.outline(4),
+			arb.pos(arb.width(), arb.height() - FLOOR_HEIGHT),
+			arb.anchor("botleft"),
+			arb.color(238, 143, 203),
+			arb.move(arb.vec2(-1, 0), SPEED2),
+			arb.offscreen({ destroy: true }),
+			"butterfly",
+		])
+
+		// wait a random amount of time to spawn next tree
+		arb.wait((2.8), spawnButterfly)
+
+	}
+
+		// lose if player collides with any game obj with tag "tree"
+		player.onCollide("butterfly",() => {
+			// go to "lose" scene and pass the score
+			arb.go("lose2", score)
+			arb.addKaboom(player.pos)
+		})
+	// start spawning trees
+	spawnButterfly()
+
+
+	
+
+
+
+    function spawnBird() {
+
+		// add bird obj
+		arb.add([
+            arb.sprite("bird"),
+            arb.scale(1),
+			// rect(48, rand(32, 96)),
+			arb.area(),
+			arb.outline(4),
+			arb.pos(arb.width(), 300 - FLOOR_HEIGHT),
+            // pos(width(), height(10)),
+			arb.anchor("botleft"),
+			arb.color(238, 143, 203),
+			arb.move(arb.vec2(-1, 0), SPEED2),
+			arb.offscreen({ destroy: true }),
+			"bird",
+		])
+
+		// wait a random amount of time to spawn next bird
+		arb.wait((4.0), spawnBird)
+
+	}
+
+	// lose if player collides with any game obj with tag "bird"
+	player.onCollide("bird", () => {
+		// go to "lose2" scene and pass the score
+		arb.go("lose3", score)
+		arb.addKaboom(player.pos)
+	})
+	// start spawning birds
+	spawnBird()
+
+
+
+	// keep track of score
+	let score = 0
+
+	const scoreLabel = arb.add([
+		arb.text(score),
+		arb.pos(24, 24),
+	])
+
+	// increment score every frame
+	arb.onUpdate(() => {
+		score++
+		scoreLabel.text = score
+	})
+
+	// if (score > 200) {
+	// 	const SPEED = add([
+	// 		1000
+	// 	])
+	// }
+
+})
+
+arb.scene("lose", (score) => {
+
+	arb.add([
+		arb.sprite("tree"),
+		arb.pos(arb.width() / 2, arb.height() / 2 - 64),
+		arb.scale(4),
+		arb.anchor("center"),
+	])
+
+	// display score
+	arb.add([
+		arb.text(score),
+		arb.pos(arb.width() / 2, arb.height() / 2 + 64),
+		arb.scale(2),
+		arb.anchor("center"),
+	])
+
+	// go back to game with space is pressed
+	arb.onKeyPress("space", () => arb.go("game"))
+	arb.onClick(() => arb.go("game"))
+
+})
+
+arb.scene("lose2", (score) => {
+
+	arb.add([
+		arb.sprite("butterfly"),
+		arb.pos(arb.width() / 2, arb.height() / 2 - 64),
+		arb.scale(4),
+		arb.anchor("center"),
+	])
+
+	// display score
+	arb.add([
+		arb.text(score),
+		arb.pos(arb.width() / 2, arb.height() / 2 + 64),
+		arb.scale(2),
+		arb.anchor("center"),
+	])
+
+	// go back to game with space is pressed
+	arb.onKeyPress("space", () => arb.go("game"))
+	arb.onClick(() => arb.go("game"))
+
+})
+
+arb.scene("lose3", (score) => {
+
+	arb.add([
+		arb.sprite("bird"),
+		arb.pos(arb.width() / 2, arb.height() / 2 - 64),
+		arb.scale(3),
+		arb.anchor("center"),
+	])
+
+	// display score
+	arb.add([
+		arb.text(score),
+		arb.pos(arb.width() / 2, arb.height() / 2 + 64),
+		arb.scale(2),
+		arb.anchor("center"),
+	])
+
+	// go back to game with space is pressed
+	arb.onKeyPress("space", () => arb.go("game"))
+	arb.onClick(() => arb.go("game"))
+
+})
+arb.go("game")
+
+}
+
+
+
+
+
+    ////
+
 
 
 })();
