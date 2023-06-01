@@ -9,8 +9,10 @@
     let description = document.querySelector('#description');
     const instructions = document.querySelector('#instructions');
     const closeBtns = document.querySelectorAll('.close');
-    const gameArea = document.querySelector('#gameArea')
-    const popup = document.querySelector('#popup')
+    const gameArea = document.querySelector('#gameArea');
+    const popup = document.querySelector('#popup');
+    let arbInstructions = false;
+
 
     galleryBtn.addEventListener('click', function() {
         gallery.className = 'showing';
@@ -25,6 +27,12 @@
         gameArea.className = 'hidden';
         popup.className = 'hidden';
 
+        if (arbInstructions == false) {
+            document.querySelector("#instructions h3").innerHTML = "Navigate to a part of the seal using the arrow keys and click “start” to play."
+        }
+        if (arbInstructions == true) {
+            document.querySelector("#instructions h3").innerHTML = "Press “spacebar” to jump. Avoid the different items and creatures coming your way!"
+        }
     })
 
     closeBtns.forEach((closeBtn) => {
@@ -220,7 +228,10 @@
     //connecting levels to map
     const arboretumStart = document.querySelector('#arboretum');
 
-    arboretumStart.addEventListener('click', arboretumLevel)
+    arboretumStart.addEventListener('click', function() {
+        arboretumLevel();
+        arbInstructions = true;
+    });
 
 
 
@@ -234,8 +245,6 @@
             scale: 2,
     })
     
-
-
 
     ////
 
@@ -576,12 +585,6 @@ arb.go("game")
 
 }
 
-
-
-
-
     ////
-
-
 
 })();
