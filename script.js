@@ -580,13 +580,6 @@ arb.scene("lose3", (score) => {
 		arb.anchor("center"),
 	])
 
-    function clearTimeout() {
-        clearTimeout(spawnBird);
-      }
-    function clearTimeout() {
-        clearTimeout(spawnButterfly);
-      }
-
 	// display score
 	arb.add([
 		arb.text(score),
