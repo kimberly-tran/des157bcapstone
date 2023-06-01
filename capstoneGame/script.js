@@ -11,7 +11,19 @@ kaboom({
 setBackground(141, 183, 255)
 
 // load assets
-loadSprite("bean", "../images/boyRight.png")
+loadSprite("bean", "../images/boy.png", {
+	slixeX: 7,
+	anims: {
+		"run": {
+			from: 1,
+			to: 4,
+			speed: 10,
+			loop: true,
+		},
+
+		"jump": 8,
+	}
+})
 loadSprite("tree", "../images/mexicanT.png")
 loadSprite("bird", "../images/cormorant1.png")
 loadSprite("butterfly", "../images/monarch1.png")
@@ -29,6 +41,14 @@ scene("game", () => {
 		body(),
 	])
 
+	player.play("run")
+
+	// onKeyPress("space", () =>{
+	// 	if (player.isGrounded()){
+	// 		player.play("jump")
+	// 	}
+	// })
+
 	// floor
 	add([
 		rect(width(), FLOOR_HEIGHT),
@@ -43,6 +63,7 @@ scene("game", () => {
 	function jump() {
 		if (player.isGrounded()) {
 			player.jump(JUMP_FORCE)
+			player.play("jump")
 		}
 	}
 
