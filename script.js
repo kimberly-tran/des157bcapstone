@@ -243,10 +243,10 @@
 arb.setBackground(141, 183, 255)
 
 // load assets
-arb.loadSprite("bean", "../images/boyRight.png")
-arb.loadSprite("tree", "../images/mexicanT.png")
-arb.loadSprite("bird", "../images/cormorant1.png")
-arb.loadSprite("butterfly", "../images/monarch1.png")
+arb.loadSprite("bean", "images/boyRight.png")
+arb.loadSprite("tree", "images/mexicanT.png")
+arb.loadSprite("bird", "images/cormorant1.png")
+arb.loadSprite("butterfly", "images/monarch1.png")
 arb.scene("game", () => {
 
 	// define gravity
