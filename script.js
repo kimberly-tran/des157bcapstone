@@ -2,6 +2,8 @@
     'use strict';
     console.log('js running');
 
+    alert("Imagine you are a fourth-grade elementary student at North Davis Elementary School. You’ve just started a new lesson in class on the history of Davis, and your teacher instructs you and your classmates to learn more about the Arboretum by playing this online desktop game. Try navigating the game and to learn more about the Arboretum.");
+
     //setting up different pages/overlays
     const galleryBtn = document.getElementById('galleryBtn');
     const instructionBtn = document.getElementById('instructionBtn');
@@ -117,7 +119,7 @@
         for (const item of items) {
             item.addEventListener('click', function(event) {
 
-                alert("Sorry, still under construction!");
+                alert("Sorry, still under construction! A description about what you clicked on should pop up.");
 
                 // const itemID = event.target.id;
                 // console.log(itemID)
@@ -169,18 +171,36 @@
     map.loadSprite("boyRight", "images/boyRight.png")    
     map.loadSprite("boyLeft", "images/boyLeft.png")    
     map.loadSprite("tempbg", "images/background.png")
-    map.loadSprite("temparea", "images/boyDown.png")
-    map.loadSprite("tree", "images/mexicanT.png")
+    map.loadSprite("temparea", "images/featherR.png")
+    map.loadSprite("temparea2", "images/pigsqueak.png")
+    map.loadSprite("temparea3", "images/turtle1.png")
     
     // for me: create a new one for front, side etc. -> player = boyfront onKeyDown
     map.add([
-        map.sprite("tempbg")
+        map.sprite("tempbg"),
+        // tempbg.scale(2)
     ])
 
     const tempCollisionArea = map.add([
         map.sprite("temparea"),
-        map.scale(0.5),
-        map.pos(200, 300),
+        map.scale(2),
+        map.pos(490, 95),
+        map.area(),
+        "tempCollisionArea"
+    ])
+
+    const tempCollisionArea2 = map.add([
+        map.sprite("temparea2"),
+        map.scale(2),
+        map.pos(450, 100),
+        map.area(),
+        "tempCollisionArea"
+    ])
+
+    const tempCollisionArea3 = map.add([
+        map.sprite("temparea3"),
+        map.scale(1),
+        map.pos(480, 100),
         map.area(),
         "tempCollisionArea"
     ])
