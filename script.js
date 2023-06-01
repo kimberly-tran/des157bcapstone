@@ -174,6 +174,18 @@
     map.loadSprite("temparea", "images/featherR.png")
     map.loadSprite("temparea2", "images/pigsqueak.png")
     map.loadSprite("temparea3", "images/turtle1.png")
+    map.loadSprite("butterfly", "images/monarch1.png",{
+        sliceX: 2,
+        anims: {
+            "fly": {
+                from: 0,
+                to: 1,
+                speed: 8,
+                loop: true,
+            }
+        }
+    })
+
     
     // for me: create a new one for front, side etc. -> player = boyfront onKeyDown
     map.add([
@@ -204,6 +216,16 @@
         map.area(),
         "tempCollisionArea"
     ])
+
+    const tempCollisionArea4 = map.add([
+            map.sprite("butterfly"),
+            map.scale(1),
+            map.pos(500, 80),
+            map.area(),
+            "butterfly",
+    ])
+    tempCollisionArea4.play("fly");
+
 
     let boy = map.add([
         map.sprite("boyDown"),
