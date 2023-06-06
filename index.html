@@ -17,17 +17,22 @@
     <link href="styles.css" rel="stylesheet">
     <script src="script.js" defer></script>
 
-    <title>capstone project version 2</title>
+    <title>capstone project version 3</title>
 </head>
 <body>
-    <header>
+    <!-- <header>
         <h1>centennial seal sprint</h1>
-    </header>
+    </header> -->
 
     <main>
-        <div id="buttons">
-            <div id="galleryBtn" class="button">gallery</div>
-            <div id="instructionBtn" class="button">how to play</div>
+        <div id="side">
+            <h1>centennial seal sprint</h1>
+            <section id="instructions">
+                <h2>how to play</h2>
+                <p>Use the arrow keys to move to a section of the seal and click “start” to play.</p>
+            </section>
+            <div id="galleryBtn" class="button">view gallery</div>
+            <!-- <div id="instructionBtn" class="button">how to play</div> -->
         </div>
 
         <div id="game">
@@ -46,17 +51,19 @@
                 <p></p> -->
                 <div class="close button">close</div>
             </section>
-            <section id="instructions" class="hidden">
-                <article>
-                    <h3>Navigate to a part of the seal using the arrow keys and click “start” to play.</h3>
-                    <div class="close button">close</div>
-                </article>
+            <section id="instructionsOverlay" class="hidden">
+                <h2>Navigate to a part of the seal using the arrow keys and click “start” to play.</h2>
+                <h3>Press the arrow keys to continue.</h3>
             </section>
             <div id="popup" class="hidden">
-                <h3>arboretum</h3>
+                <h2>arboretum</h2>
                 <p>explore the flora (plants) and fauna (animals) of the arboretum</p>
                 <div class="button" id="arboretum">start</div>
             </div>
+            <section id="gameBtns" class="hidden">
+                <div id="continueBtn" class="small button">try again</div>
+                <div id="galleryBtn2" class="small button">gallery</div>
+            </section>
         </div>
     </main>
     

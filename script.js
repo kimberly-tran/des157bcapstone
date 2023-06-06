@@ -11,38 +11,42 @@
     const gallery = document.querySelector('#gallery');
     let description = document.querySelector('#description');
     const instructions = document.querySelector('#instructions');
+    const instructionsOverlay = document.querySelector('#instructionsOverlay');
     const closeBtns = document.querySelectorAll('.close');
     const gameArea = document.querySelector('#gameArea');
     const popup = document.querySelector('#popup');
     let arbInstructions = false;
 
+    document.querySelector('#game').addEventListener('click', function(){
+        gameArea.focus();
+    });
 
     //opening/closing gallery + instructions
     galleryBtn.addEventListener('click', function() {
         gallery.className = 'showing';
-        instructions.className = 'hidden';
+        instructionsOverlay.className = 'hidden';
         gameArea.className = 'hidden';
         popup.className = 'hidden';
     })
 
-    instructionBtn.addEventListener('click', function() {
-        instructions.className = 'showing';
-        // gallery.className = 'hidden';
-        // gameArea.className = 'hidden';
-        popup.className = 'hidden';
+    // instructionBtn.addEventListener('click', function() {
+    //     instructions.className = 'showing';
+    //     // gallery.className = 'hidden';
+    //     // gameArea.className = 'hidden';
+    //     popup.className = 'hidden';
 
-        if (arbInstructions == false) {
-            document.querySelector("#instructions h3").innerHTML = "Navigate to a part of the seal using the arrow keys and click “start” to play."
-        }
-        if (arbInstructions == true) {
-            document.querySelector("#instructions h3").innerHTML = "Press “spacebar” to jump. Avoid the different items and creatures coming your way!"
-        }
-    })
+    //     if (arbInstructions == false) {
+    //         document.querySelector("#instructions h3").innerHTML = "Navigate to a part of the seal using the arrow keys and click “start” to play."
+    //     }
+    //     if (arbInstructions == true) {
+    //         document.querySelector("#instructions h3").innerHTML = "Press “spacebar” to jump. Avoid the different items and creatures coming your way!"
+    //     }
+    // })
 
     closeBtns.forEach((closeBtn) => {
         closeBtn.addEventListener('click', function() {
             gallery.className = 'hidden';
-            instructions.className = 'hidden';
+            instructionsOverlay.className = 'hidden';
             gameArea.className = 'showing';
             gameArea.focus();
         });
@@ -84,41 +88,6 @@
     }
 
     getData();
-
-
-    // function createDescriptions(data) {
-    //     const items = document.querySelectorAll('.item');
-    //     console.log(items)
-
-    //     for (const item of items) {
-    //         item.addEventListener('click', function(event) {
-
-    //             // alert("Sorry, still under construction! A description about what you clicked on should pop up.");
-
-    //             const itemID = event.target.id;
-    //             console.log(itemID)
-    //             console.log(data[itemID])
-                
-    //             description.innerHTML = `
-    //                 <article>
-    //                     <img src="images/${data[itemID].image}" alt="${data[itemID].name}" width="120">
-    //                     <h3>${data[itemID].name}</h3>
-    //                     <p>${data[itemID].description}</p>
-    //                     <div id="closeDescription" class="close button">close</div>
-    //                 </article>`
-
-    //             document.querySelector('#closeDescription').addEventListener('click', function() {
-    //                 description.className = "hidden";
-    //             });
-    //             // document.querySelector('#description h3').innerHTML = data[itemID].name;
-    //             // document.querySelector('#description p').innerHTML = data[itemID].description;
-
-    //             console.log(description)
-    //             description.className = "showing"
-
-    //         });
-    //     }
-    // }
 
 
     function createDescriptions(data) {
@@ -184,6 +153,7 @@
     // for me: create a new one for front, side etc. -> player = boyfront onKeyDown
     map.add([
         map.sprite("tempbg"),
+        instructionsOverlay.className = "showing"
         // tempbg.scale(2)
     ])
 
@@ -233,25 +203,25 @@
     map.onKeyDown("left", () => {
         player.use(map.sprite('boyLeft'))
         player.move(-SPEED, 0)
+        instructionsOverlay.className = "hidden"
     })
 
     map.onKeyDown("right", () => {
         player.use(map.sprite('boyRight'))
         player.move(SPEED, 0)
+        instructionsOverlay.className = "hidden"
     })
 
     map.onKeyDown("up", () => {
         player.move(0, -SPEED),
         player.use(map.sprite('boyUp'))
+        instructionsOverlay.className = "hidden"
     })
 
     map.onKeyDown("down", () => {
-        // boy = map.readd([
-        //     map.sprite("boyDown"),
-        //     map.area(),
-        // ])
         player.move(0, SPEED),
         player.use(map.sprite('boyDown'))
+        instructionsOverlay.className = "hidden"
     })
     
     player.onCollide("tempCollisionArea", (tempCollisionArea) => {
@@ -268,6 +238,16 @@
     arboretumStart.addEventListener('click', function() {
         arboretumLevel();
         arbInstructions = true;
+
+        if (arbInstructions == false) {
+            document.querySelector("#instructions p").innerHTML = "Navigate to a part of the seal using the arrow keys and click “start” to play.";
+        }
+        if (arbInstructions == true) {
+            document.querySelector("#instructions p").innerHTML = "Press “spacebar” to jump. Avoid the different items and creatures coming your way!";
+            document.querySelector("#instructionsOverlay h2").innerHTML = "Press “spacebar” to jump. Avoid the different items and creatures coming your way!";
+            document.querySelector("#instructionsOverlay h3").innerHTML = "Press “spacebar” to continue.";
+            instructionsOverlay.className = "showing";
+        }
     });
 
 
@@ -391,6 +371,7 @@
                 player.jump(JUMP_FORCE)
                 player.play("jump1")
             }
+            instructionsOverlay.className = "hidden"
         }
 
         // jump when user press space
