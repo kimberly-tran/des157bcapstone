@@ -167,7 +167,7 @@
     map.loadSprite("tempbg", "images/background.png")
     map.loadSprite("temparea", "images/featherR.png")
     map.loadSprite("temparea2", "images/pigsqueak.png")
-    map.loadSprite("temparea3", "images/turtle1.png")
+    map.loadSprite("temparea3", "images/turtle2.png")
     map.loadSprite("butterfly", "images/monarch1.png",{
         sliceX: 2,
         anims: {
@@ -306,6 +306,12 @@
         }
     })
     // arb.loadSprite("tree1", "images/tree1.png")
+    arb.loadSprite("reedD", "images/reedD.png")
+    arb.loadSprite("butD", "images/butD.png")
+    arb.loadSprite("turtleD", "images/turtleD.png")
+    arb.loadSprite("pigD", "images/pigD.png")
+    arb.loadSprite("corD", "images/corD.png")
+    arb.loadSprite("treeD", "images/treeD.png")
     arb.loadSprite("tree", "images/mexicanT.png")
     arb.loadSprite("flower", "images/pigsqueak.png")
     arb.loadSprite("bush", "images/featherR.png")
@@ -657,11 +663,18 @@
             arb.anchor("center"),
         ])
 
+        arb.add([
+            arb.sprite("treeD"),
+            arb.pos(arb.width()/2, arb.height()/2 + 64),
+            arb.scale(0.6),
+            arb.anchor("center"),
+        ])
+
         // display score
         arb.add([
             arb.text(score),
-            arb.pos(arb.width() / 2, arb.height() / 2 + 64),
-            arb.scale(2),
+            arb.pos(arb.width() / 2, arb.height() / 2 - 100),
+            arb.scale(1),
             arb.anchor("center"),
         ])
 
@@ -681,11 +694,18 @@
         ])
 
 
+        arb.add([
+            arb.sprite("butD"),
+            arb.pos(arb.width()/2, arb.height()/2 + 64),
+            arb.scale(0.6),
+            arb.anchor("center"),
+        ])
+
         // display score
         arb.add([
             arb.text(score),
-            arb.pos(arb.width() / 2, arb.height() / 2 + 64),
-            arb.scale(2),
+            arb.pos(arb.width() / 2, arb.height() / 2 - 100),
+            arb.scale(1),
             arb.anchor("center"),
         ])
 
@@ -704,11 +724,18 @@
             arb.anchor("center"),
         ])
 
+        arb.add([
+            arb.sprite("corD"),
+            arb.pos(arb.width()/2, arb.height()/2 + 64),
+            arb.scale(0.6),
+            arb.anchor("center"),
+        ])
+
         // display score
         arb.add([
             arb.text(score),
-            arb.pos(arb.width() / 2, arb.height() / 2 + 64),
-            arb.scale(2),
+            arb.pos(arb.width() / 2, arb.height() / 2 - 100),
+            arb.scale(1),
             arb.anchor("center"),
         ])
         // go back to game with space is pressed
@@ -726,11 +753,18 @@
             arb.anchor("center"),
         ])
 
+        arb.add([
+            arb.sprite("turtleD"),
+            arb.pos(arb.width()/2, arb.height()/2 + 64),
+            arb.scale(0.6),
+            arb.anchor("center"),
+        ])
+
         // display score
         arb.add([
             arb.text(score),
-            arb.pos(arb.width() / 2, arb.height() / 2 + 64),
-            arb.scale(2),
+            arb.pos(arb.width() / 2, arb.height() / 2 - 100),
+            arb.scale(1),
             arb.anchor("center"),
         ])
         // go back to game with space is pressed
@@ -749,11 +783,18 @@
             arb.anchor("center"),
         ])
 
+        arb.add([
+            arb.sprite("pigD"),
+            arb.pos(arb.width()/2, arb.height()/2 + 64),
+            arb.scale(0.6),
+            arb.anchor("center"),
+        ])
+
         // display score
         arb.add([
             arb.text(score),
-            arb.pos(arb.width() / 2, arb.height() / 2 + 64),
-            arb.scale(2),
+            arb.pos(arb.width() / 2, arb.height() / 2 - 100),
+            arb.scale(1),
             arb.anchor("center"),
         ])
         // go back to game with space is pressed
@@ -772,11 +813,18 @@
             arb.anchor("center"),
         ])
 
+        arb.add([
+            arb.sprite("reedD"),
+            arb.pos(arb.width()/2, arb.height()/2 + 64),
+            arb.scale(0.6),
+            arb.anchor("center"),
+        ])
+
         // display score
         arb.add([
             arb.text(score),
-            arb.pos(arb.width() / 2, arb.height() / 2 + 64),
-            arb.scale(2),
+            arb.pos(arb.width() / 2, arb.height() / 2 - 100),
+            arb.scale(1),
             arb.anchor("center"),
         ])
         // go back to game with space is pressed
