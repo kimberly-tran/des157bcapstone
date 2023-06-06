@@ -284,9 +284,12 @@
 
     const FLOOR_HEIGHT = 48
     const JUMP_FORCE = 800
-    const SPEED2 = 300
+    let SPEED2 = 300
+
 
     arb.setBackground(141, 183, 255)
+
+   
 
     // load assets
     arb.loadSprite("bean", "images/boy.png", {
@@ -302,7 +305,10 @@
             "jump1": 5,
         }
     })
+    // arb.loadSprite("tree1", "images/tree1.png")
     arb.loadSprite("tree", "images/mexicanT.png")
+    arb.loadSprite("flower", "images/pigsqueak.png")
+    arb.loadSprite("bush", "images/featherR.png")
     arb.loadSprite("bird", "images/cormorant1.png",{
         sliceX: 2,
         anims: {
@@ -325,6 +331,18 @@
             }
         }
     })
+    arb.loadSprite("turtle", "images/turtle1.png",{
+        sliceX: 2,
+        anims: {
+            "crawl": {
+                from: 0,
+                to: 1,
+                speed: 8,
+                loop: true,
+            }
+        }
+    })
+    
     arb.scene("game", () => {
 
 	// define gravity
@@ -373,6 +391,32 @@
         arb.onKeyPress("space", jump)
         arb.onClick(jump)
 
+
+        // function spawnTree1() {
+
+            // // add tree obj
+            // arb.add([
+            //     arb.sprite("tree1"),
+            //     arb.area({ scale: 0.3 }),
+            //     arb.scale(2),
+            //     // rect(48, rand(32, 96)),
+            //     // area(),
+            //     arb.outline(4),
+            //     arb.pos(arb.width(), arb.height() - FLOOR_HEIGHT),
+            //     arb.anchor("botleft"),
+            //     arb.color(238, 143, 203),
+            //     arb.move(arb.vec2(-1, 0), SPEED2),
+            //     arb.offscreen({ destroy: true }),
+            //     "tree1",
+            // ])
+
+            // // wait a random amount of time to spawn next tree
+            // arb.wait(arb.rand(2,1), spawnTree1)
+
+        // }
+        // start spawning trees
+        // spawnTree1()
+
         function spawnTree() {
 
             // add tree obj
@@ -392,7 +436,7 @@
             ])
 
             // wait a random amount of time to spawn next tree
-            arb.wait(arb.rand(1, 4), spawnTree)
+            arb.wait(arb.rand(8, 13), spawnTree)
 
         }
 
@@ -400,29 +444,12 @@
             player.onCollide("tree",() => {
                 // go to "lose" scene and pass the score
                 arb.go("lose", score)
-                arb.addKaboom(player.pos)
             })
         // start spawning trees
         spawnTree()
 
         setTimeout(() => {
             function spawnButterfly() {
-
-                // add insect obj
-                // arb.add([
-                //     arb.sprite("butterfly"),
-                //     arb.area({ scale: 0.1 }),
-                //     arb.scale(1),
-                // 	// rect(48, rand(32, 96)),
-                // 	// area(),
-                // 	arb.outline(4),
-                // 	arb.pos(arb.width(), arb.height() - FLOOR_HEIGHT),
-                // 	arb.anchor("botleft"),
-                // 	arb.color(238, 143, 203),
-                // 	arb.move(arb.vec2(-1, 0), SPEED2),
-                // 	arb.offscreen({ destroy: true }),
-                // 	"butterfly",
-                // ])
 
                 const butterfly = arb.add([
                     arb.sprite("butterfly"),
@@ -440,46 +467,95 @@
                     // lose if player collides with any game obj with tag "tree"
 
                 // wait a random amount of time to spawn next tree
-                arb.wait((3, 5), spawnButterfly)
+                arb.wait((7, 14), spawnButterfly)
 
             }
 
             // start spawning trees
             spawnButterfly()
 
-        }, 4000);
+
+        }, 4500);
 
         player.onCollide("butterfly",() => {
             // go to "lose" scene and pass the score
             arb.go("lose2", score)
-            arb.addKaboom(player.pos)
+        })
+
+        setTimeout(() => {
+            function spawnFlower() {
+
+                const bush = arb.add([
+                    arb.sprite("flower"),
+                    arb.scale(2),
+                    arb.area({scale: 0.5}),
+                    arb.outline(4),
+                    arb.pos(arb.width(), arb.height() - FLOOR_HEIGHT),
+                    arb.anchor("botleft"),
+                    arb.color(238, 143, 203),
+                    arb.move(arb.vec2(-1, 0), SPEED2),
+                    arb.offscreen({ destroy: true }),
+                    "flower",
+                ]);
+
+                // wait a random amount of time to spawn next tree
+                arb.wait((7, 14), spawnFlower)
+
+            }
+
+            // start spawning trees
+            spawnFlower()
+
+
+        }, 7500);
+
+        player.onCollide("flower",() => {
+            // go to "lose" scene and pass the score
+            arb.go("lose5", score)
+        })
+
+
+        setTimeout(() => {
+            function spawnBush() {
+
+                const bush = arb.add([
+                    arb.sprite("bush"),
+                    arb.scale(2),
+                    arb.area({scale: 0.5}),
+                    arb.outline(4),
+                    arb.pos(arb.width(), arb.height() - FLOOR_HEIGHT),
+                    arb.anchor("botleft"),
+                    arb.color(238, 143, 203),
+                    arb.move(arb.vec2(-1, 0), SPEED2),
+                    arb.offscreen({ destroy: true }),
+                    "bush",
+                ]);
+
+                // wait a random amount of time to spawn next tree
+                arb.wait((14), spawnBush)
+
+            }
+
+            // start spawning trees
+            spawnBush()
+
+
+        }, 6200);
+
+        player.onCollide("bush",() => {
+            // go to "lose" scene and pass the score
+            arb.go("lose6", score)
         })
 
 
         function spawnBird() {
             console.log("bird spawned")
 
-            // add bird obj
-            // arb.add([
-            //     arb.sprite("bird"),
-            //     arb.scale(1),
-            // 	// rect(48, rand(32, 96)),
-            // 	arb.area(),
-            // 	arb.outline(4),
-            // 	arb.pos(arb.width(), 300 - FLOOR_HEIGHT),
-            //     // pos(width(), height(10)),
-            // 	arb.anchor("botleft"),
-            // 	arb.color(238, 143, 203),
-            // 	arb.move(arb.vec2(-1, 0), SPEED2),
-            // 	arb.offscreen({ destroy: true }),
-            // 	"bird",
-            // ])
-
             const bird = arb.add([
                 arb.sprite("bird"),
                 arb.area({scale: 0.8}),
                 arb.outline(4),
-                arb.pos(arb.width(), arb.rand(200, 280) - FLOOR_HEIGHT),
+                arb.pos(arb.width(), arb.rand(200, 170) - FLOOR_HEIGHT),
                 arb.anchor("botleft"),
                 arb.color(238, 143, 203),
                 arb.move(arb.vec2(-1, 0), SPEED2),
@@ -490,7 +566,7 @@
             bird.play("fly"),
 
             // wait a random amount of time to spawn next bird
-            arb.wait((2, 6), spawnBird)
+            arb.wait((6, 12), spawnBird)
 
 
         }
@@ -503,10 +579,43 @@
         player.onCollide("bird", () => {
             // go to "lose2" scene and pass the score
             arb.go("lose3", score)
-            arb.addKaboom(player.pos)
+
+        })
+
+        function spawnTurtle() {
+
+            const turtle = arb.add([
+                arb.sprite("turtle"),
+                arb.area({scale: 0.6}),
+                arb.outline(4),
+                arb.pos(arb.width(), arb.height() - FLOOR_HEIGHT),
+                arb.anchor("botleft"),
+                arb.color(238, 143, 203),
+                arb.move(arb.vec2(-1, 0), SPEED2),
+                arb.offscreen({ destroy: true }),
+                "turtle",
+            ]);
+
+            turtle.play("crawl"),
+
+            // wait a random amount of time to spawn next bird
+            arb.wait((15, 20), spawnTurtle)
+
+
+        }
+        
+        // start spawning birds
+        setTimeout(spawnTurtle, 9100); 
+        
+
+        // lose if player collides with any game obj with tag "bird"
+        player.onCollide("turtle", () => {
+            // go to "lose2" scene and pass the score
+            arb.go("lose4", score)
         })
 
 
+        // arb.random( spawnTurtle(), spawnBird(), spawnButterfly(), spawnTree())
 
 
 
@@ -522,8 +631,14 @@
         // increment score every frame
         arb.onUpdate(() => {
             score++
+            // SPEED2+
             scoreLabel.text = score
         })
+        
+        // if (score > 200){
+        //    const SPEED3 = 500
+        //     SPEED2+
+        // }
 
         // if (score > 200) {
         // 	const SPEED = add([
@@ -596,9 +711,74 @@
             arb.scale(2),
             arb.anchor("center"),
         ])
+        // go back to game with space is pressed
+        arb.onKeyPress("space", () => arb.go("game"))
+        arb.onClick(() => arb.go("game"))
+
+    })
+
+    arb.scene("lose4", (score) => {
+
+        arb.add([
+            arb.sprite("turtle"),
+            arb.pos(arb.width() / 2, arb.height() / 2 - 64),
+            arb.scale(3),
+            arb.anchor("center"),
+        ])
+
+        // display score
+        arb.add([
+            arb.text(score),
+            arb.pos(arb.width() / 2, arb.height() / 2 + 64),
+            arb.scale(2),
+            arb.anchor("center"),
+        ])
+        // go back to game with space is pressed
+        arb.onKeyPress("space", () => arb.go("game"))
+        arb.onClick(() => arb.go("game"))
+
+    })
 
 
+    arb.scene("lose5", (score) => {
 
+        arb.add([
+            arb.sprite("flower"),
+            arb.pos(arb.width() / 2, arb.height() / 2 - 64),
+            arb.scale(3),
+            arb.anchor("center"),
+        ])
+
+        // display score
+        arb.add([
+            arb.text(score),
+            arb.pos(arb.width() / 2, arb.height() / 2 + 64),
+            arb.scale(2),
+            arb.anchor("center"),
+        ])
+        // go back to game with space is pressed
+        arb.onKeyPress("space", () => arb.go("game"))
+        arb.onClick(() => arb.go("game"))
+
+    })
+
+
+    arb.scene("lose6", (score) => {
+
+        arb.add([
+            arb.sprite("bush"),
+            arb.pos(arb.width() / 2, arb.height() / 2 - 64),
+            arb.scale(3),
+            arb.anchor("center"),
+        ])
+
+        // display score
+        arb.add([
+            arb.text(score),
+            arb.pos(arb.width() / 2, arb.height() / 2 + 64),
+            arb.scale(2),
+            arb.anchor("center"),
+        ])
         // go back to game with space is pressed
         arb.onKeyPress("space", () => arb.go("game"))
         arb.onClick(() => arb.go("game"))
