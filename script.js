@@ -10,8 +10,6 @@
     const instructionBtn = document.getElementById('instructionBtn');
     const gallery = document.querySelector('#gallery');
     let description = document.querySelector('#description');
-    const sources = document.querySelector('#sources');
-    const sourcepage = document.querySelector('#sourcespage');
     const instructions = document.querySelector('#instructions');
     const instructionsOverlay = document.querySelector('#instructionsOverlay');
     const closeBtns = document.querySelectorAll('.close');
@@ -31,15 +29,10 @@
         popup.className = 'hidden';
     });
 
-    sources.addEventListener('click', function() {
-        sourcepage.className = "showing";
-    });
-
     closeBtns.forEach((closeBtn) => {
         closeBtn.addEventListener('click', function() {
             gallery.className = 'hidden';
             instructionsOverlay.className = 'hidden';
-            sourcepage.className = "hidden";
             gameArea.className = 'showing';
             gameArea.focus();
         });
