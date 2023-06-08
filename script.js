@@ -10,6 +10,8 @@
     const instructionBtn = document.getElementById('instructionBtn');
     const gallery = document.querySelector('#gallery');
     let description = document.querySelector('#description');
+    const sources = document.querySelector('#sources');
+    const sourcepage = document.querySelector('#sourcespage');
     const instructions = document.querySelector('#instructions');
     const instructionsOverlay = document.querySelector('#instructionsOverlay');
     const closeBtns = document.querySelectorAll('.close');
@@ -27,26 +29,17 @@
         instructionsOverlay.className = 'hidden';
         gameArea.className = 'hidden';
         popup.className = 'hidden';
-    })
+    });
 
-    // instructionBtn.addEventListener('click', function() {
-    //     instructions.className = 'showing';
-    //     // gallery.className = 'hidden';
-    //     // gameArea.className = 'hidden';
-    //     popup.className = 'hidden';
-
-    //     if (arbInstructions == false) {
-    //         document.querySelector("#instructions h3").innerHTML = "Navigate to a part of the seal using the arrow keys and click “start” to play."
-    //     }
-    //     if (arbInstructions == true) {
-    //         document.querySelector("#instructions h3").innerHTML = "Press “spacebar” to jump. Avoid the different items and creatures coming your way!"
-    //     }
-    // })
+    sources.addEventListener('click', function() {
+        sourcepage.className = "showing";
+    });
 
     closeBtns.forEach((closeBtn) => {
         closeBtn.addEventListener('click', function() {
             gallery.className = 'hidden';
             instructionsOverlay.className = 'hidden';
+            sourcepage.className = "hidden";
             gameArea.className = 'showing';
             gameArea.focus();
         });
@@ -75,7 +68,7 @@
             let newItem = document.createElement("div");
 
             let html = `<div class="item" id="${data[dataPoints[i]].id}">`;
-            html += `<img src="images/${data[dataPoints[i]].image}" alt="${data[dataPoints[i]].name}" width="120">
+            html += `<img src="images/${data[dataPoints[i]].pixelimg}" alt="${data[dataPoints[i]].name}" width="120">
             <h3>${data[dataPoints[i]].name}</h3>`;
             html += '</div>';
             newItem = html;

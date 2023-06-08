@@ -67,6 +67,17 @@ main {
     overflow-y: scroll;
 }
 
+#sourcespage {
+    width: 100%;
+    height: 100%;
+    background-color: #ddb08f;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: scroll;
+}
+
 #popup.showing {
     width: 300px;
     height: 240px;
@@ -132,6 +143,15 @@ main {
 
 .category h2 {
     margin: 12px 0 36px 0;
+}
+
+#sources {
+    align-self: flex-end;
+}
+
+#sources:hover, a:hover {
+    cursor: pointer;
+    color: white;
 }
 
 #gallery .container {
@@ -212,20 +232,6 @@ section article p {
     /* text-align: center; */
 }
 
-/* #side {
-    display: flex;
-    gap: 24px;
-    flex-direction: column;
-    justify-content: start;
-    width: 15%;
-    padding: 24px;
-    background-color: #E2A97E;
-    box-shadow: 
-    4px 4px #CC8A58,
-    inset 4px 4px #F5CDAF;
-    border: 4px #CB8175 solid;
-    text-align: center;
-} */
 
 #gameBtns.showing {
     display: flex;
@@ -248,32 +254,6 @@ section article p {
         4px 4px #dcdbdb,
         inset 4px 4px #ffffff;
 }
-
-/* .button {
-    background-color: #FFFCEF;
-    color: #222;
-    font-size: 20px;
-    text-align: center;
-    padding: 12px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    box-shadow: 
-        4px 4px #E2DECA,
-        inset 4px 4px #FFFEFC;
-} */
-
-/* .button {
-    background-color: #F45154;
-    color: white;
-    font-size: 20px;
-    text-align: center;
-    padding: 12px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    box-shadow: 
-        4px 4px #e34c4e,
-        inset 4px 4px #fd7679;
-} */
 
 .close {
     width: 120px;
